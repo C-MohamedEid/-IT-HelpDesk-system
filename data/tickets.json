@@ -1,0 +1,12 @@
+[
+     {
+          "ticket_id": "TK001",
+          "employee_name": "alex",
+          "department": "IT",
+          "issue_type": "system down",
+          "description": "system down",
+          "priority": "high",
+          "date_created": "2025-11-30 23:21:55",
+          "status": "Closed"
+     }
+]

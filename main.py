@@ -30,7 +30,7 @@ def main():
             print(f"Ticket {ticket.ticket_id} created successfully.")
         
         elif choice == "2":
-            ticket_id = input("Enter Ticket ID to search: ").upper()
+            ticket_id = input("Enter Ticket ID to search: ").strip().upper()
             result = manager.search_by_id(ticket_id)
             if result:
                 print(f" Ticket Found: {result.employee_name} *** Dept: {result.department} *** Status: {result.status}")
@@ -48,22 +48,29 @@ def main():
                 print("No tickets found for this department.")
 
         elif choice == "4":
-            ticket_id = input("Enter Ticket ID to update: ").upper()
+            ticket_id = input("Enter Ticket ID to update: ").strip().upper()
             ticket = manager.search_by_id(ticket_id)
             if not ticket:
                 print("Ticket not found.")
                 continue
-            new_status = input("Enter new status (Open/In Progress/Closed/On Hold): ")
-            manager.ticket_update_status(ticket_id, new_status)
-            print("Ticket status updated successfully.")
-
+            print(f"Current Status: {ticket.status}")
+            new_status = input("Enter new status (valid options: Open/In Progress/Closed/On Hold): ")
+            try:
+                success =manager.ticket_update_status(ticket_id, new_status)
+                if success:
+                    print("Ticket status updated successfully.")
+                else:
+                    print("Failed to update ticket status.")
+            except ValueError as e:
+                print(e)
+            
         elif choice == "5":
             if not manager.tickets:
                 print("No tickets available.")
             else:
                 print("All Tickets:")
                 for ticket in manager.tickets:
-                    print(f" - ID: {ticket.ticket_id}, - Employee: {ticket.employee_name}, - Dept: {ticket.department}, - Status: {ticket.status}")
+                    print(f" *** ID: {ticket.ticket_id}, *** Employee: {ticket.employee_name}, *** Dept: {ticket.department}, *** Status: {ticket.status}")
 
         elif choice == "6":
             print("Exiting the system. Goodbye!")
@@ -72,9 +79,5 @@ def main():
         else:
             print("Invalid choice. Please try again.")
 
+if __name__ == "__main__":
     main()
-
-
-
-
-            
